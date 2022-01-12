@@ -6,7 +6,7 @@
 运行 electron 渲染程序
 
 ## electron/ipcRender.js
-连接主程序和渲染程序的桥梁（把控制底层nodejs核心推到渲染程序中）
+连接主程序和渲染程序桥梁（把控制底层nodejs核心推到渲染程序中）
 
 
 > 主程序
