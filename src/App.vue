@@ -10,6 +10,9 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  mounted: function () {
+    console.warn(window.electron['node-machine-id'].machineIdSync(true))
   }
 }
 </script>
