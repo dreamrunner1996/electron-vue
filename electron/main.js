@@ -1,9 +1,10 @@
 const { app, BrowserWindow, Menu } = require('electron')
+const path = require('path')
 const pkg = require('../package.json')
 
 const devMode = pkg.env.DEV
 const devUrl = `http://${pkg.env.HOST}:${pkg.env.PORT}`
-const fileUrl = '../dist/index.html'
+const fileUrl = './dist/index.html'
 
 const createWindow = () => {
   Menu.setApplicationMenu(null)
@@ -13,13 +14,13 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
-      preload: __dirname + '/ipcRender.js'
+      preload: path.join(__dirname, 'ipcRender.js')
     }
   })
-  win.webContents.openDevTools({ mode: 'detach' })
-  devMode ?
-    win.loadURL(devUrl).then(() => { console.log(`dev mode is running: ${devUrl}`) }) :
-    win.loadFile(fileUrl).then(() => {})
+  if (devMode) {
+    win.webContents.openDevTools({ mode: 'detach' })
+    win.loadURL(devUrl).then(() => { console.log(`dev mode is running: ${devUrl}`) })
+  } else win.loadFile(fileUrl).then(() => {})
 }
 
 app.allowRendererProcessReuse = false

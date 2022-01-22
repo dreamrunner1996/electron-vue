@@ -2,14 +2,15 @@
   "name": "electron-vue",
   "version": "0.1.0",
   "private": true,
+  "main": "electron/main.js",
   "scripts": {
-    "ele-start": "electron electron/main.js",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build-win64": "vue-cli-service build && electron-builder --x64",
+    "ele-dev": "electron electron/main.js",
+    "web-dev": "vue-cli-service serve"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "node-machine-id": "^1.1.12",
     "vue": "^3.0.0"
   },
   "devDependencies": {
@@ -19,9 +20,9 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "electron": "^16.0.7",
+    "electron-builder": "^22.14.5",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "node-machine-id": "^1.1.12"
+    "eslint-plugin-vue": "^7.0.0"
   },
   "eslintConfig": {
     "root": true,
@@ -43,8 +44,31 @@
     "not dead"
   ],
   "env": {
-    "DEV": true,
+    "DEV": false,
     "HOST": "127.0.0.1",
     "PORT": 7777
+  },
+  "build": {
+    "productName": "electron-vue",
+    "appId": "electron.vue.application",
+    "copyright": "heinrich",
+    "directories": {
+      "output": "project"
+    },
+    "files": [
+      "./dist/**/*",
+      "./electron/**/*"
+    ],
+    "win": {
+      "icon": "./icons/applogo.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "installerIcon": "./icons/applogo.ico",
+      "uninstallerIcon": "./icons/uninstall.ico",
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "dashboard-application"
+    }
   }
 }

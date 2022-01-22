@@ -2,7 +2,12 @@ const pkg = require('./package.json')
 
 module.exports = {
   publicPath: './',
-  outputDir: 'webProject',
+  outputDir: 'dist',
+  pluginOptions: {
+    electronBuilder: {
+      preload: 'electron/ipcRender.js'
+    }
+  },
   devServer: {
     host: pkg.env.HOST,
     port: pkg.env.PORT,
